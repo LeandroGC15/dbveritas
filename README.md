@@ -53,9 +53,12 @@ docker compose up -d --build
 
 ### Variables de Entorno
 
-Copia `.env.example` a `.env` y configura:
+Copia `env.example` a `.env` y configura:
 
 ```env
+# Backend Path (ruta relativa al directorio dbveritas)
+BACKEND_PATH=../backend_veritas_go  # Ajustar según el nombre de tu directorio
+
 # Database
 DB_USER=postgres
 DB_PASSWORD=tu-password-seguro
@@ -74,20 +77,24 @@ JWT_EXPIRATION=24h
 CORS_ALLOWED_ORIGINS=https://tu-dominio.com
 ```
 
+**Importante:** La variable `BACKEND_PATH` debe apuntar a la ruta relativa donde está el código del backend. Por defecto es `../Veritasbackend`, pero si tu directorio tiene otro nombre (como `backend_veritas_go`), debes configurarlo en el `.env`.
+
 ### Estructura de Directorios
 
 El `docker-compose.yml` espera esta estructura:
 
 ```
 proyecto/
-├── Veritasbackend/          # Repositorio del backend
+├── backend_veritas_go/      # O el nombre que tenga tu directorio del backend
 │   ├── Dockerfile
 │   ├── cmd/
 │   └── ...
 └── dbveritas/               # Este directorio
     ├── docker-compose.yml
-    └── .env
+    └── .env                 # Con BACKEND_PATH configurado
 ```
+
+**Nota:** Si el nombre de tu directorio del backend es diferente, configura `BACKEND_PATH` en el archivo `.env`.
 
 ## 📦 Comandos Útiles
 
@@ -139,8 +146,8 @@ sudo usermod -aG docker $USER
 ### 2. Clonar y Configurar
 
 ```bash
-# Clonar repositorios
-git clone <url-backend> Veritasbackend
+# Clonar repositorios (ajustar nombres según tu caso)
+git clone <url-backend> backend_veritas_go  # O el nombre que uses
 git clone <url-dbveritas> dbveritas
 
 # O si es monorepo
@@ -148,8 +155,12 @@ git clone <url-repo> veritas
 cd veritas/dbveritas
 
 # Configurar variables de entorno
-cp .env.example .env
+cp env.example .env
 nano .env  # Editar con valores de producción
+
+# IMPORTANTE: Configurar BACKEND_PATH según el nombre de tu directorio
+# Si tu directorio se llama "backend_veritas_go", usa:
+# BACKEND_PATH=../backend_veritas_go
 ```
 
 ### 3. Desplegar
