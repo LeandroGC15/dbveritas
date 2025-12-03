@@ -1,0 +1,19 @@
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Docker volumes data (opcional, si quieres versionar la estructura)
+# postgres_data/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
